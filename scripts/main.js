@@ -1,68 +1,107 @@
-// Initialize the application
-function initApp() {
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize dark mode first
     setupDarkMode();
+    
+    // Then setup search functionality
     setupSearch();
+    
+    // Then setup back button
     setupBackButton();
     
     // Check URL hash for card view
     if (window.location.hash.startsWith('#card-')) {
-        showCardDetails(window.location.hash.replace('#card-', ''));
+        const cardId = window.location.hash.replace('#card-', '');
+        showCardDetails(cardId);
     }
-}
+});
 
-// Dark mode functionality
+// Dark Mode Functionality
 function setupDarkMode() {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
     
-    if (localStorage.getItem('darkMode') === 'enabled') {
+    // Check for saved preference
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode === 'enabled') {
         body.classList.add('dark-mode');
-        if (darkModeToggle) darkModeToggle.textContent = '🌞';
+        darkModeToggle.textContent = '🌞';
     }
     
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const isDarkMode = body.classList.contains('dark-mode');
-            
-            if (isDarkMode) {
-                darkModeToggle.textContent = '🌞';
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                darkModeToggle.textContent = '🌓';
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-    }
+    // Toggle functionality
+    darkModeToggle.addEventListener('click', function() {
+        body.classList.toggle('dark-mode');
+        const isDarkMode = body.classList.contains('dark-mode');
+        
+        // Update icon and save preference
+        darkModeToggle.textContent = isDarkMode ? '🌞' : '🌓';
+        localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+    });
 }
 
-// Search functionality
+// Search Functionality
 function setupSearch() {
     const searchInput = document.getElementById('searchInput');
     const autocompleteResults = document.getElementById('autocompleteResults');
     
     if (!searchInput || !autocompleteResults) return;
     
-    function searchCards(query) {
-        if (!window.cardDatabase) return [];
-        if (query.length < 1) {
+    // Card database - will be replaced if database.json loads
+    window.cardDatabase = window.cardDatabase || [
+        {
+            id: "goomba",
+            name: "Goomba",
+            type: "Common Creature",
+            description: "A small mushroom creature",
+            image: "Images/goomba.png",
+            stats: {
+                attack: 1,
+                defense: 1,
+                cost: 1
+            },
+            rules: [
+                "Can attack the turn it's played",
+                "When defeated, opponent gains 1 PT"
+            ]
+        },
+        {
+            id: "baseline-earth",
+            name: "Baseline Earth", 
+            type: "Terrain",
+            description: "Fundamental earth element",
+            image: "Images/earth.png",
+            stats: {
+                defense: 3,
+                cost: 2
+            },
+            rules: [
+                "Permanent card",
+                "Provides +1 defense to adjacent units"
+            ]
+        }
+    ];
+    
+    // Handle search input
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase();
+        if (query.length === 0) {
             autocompleteResults.style.display = 'none';
-            return [];
+            return;
         }
         
-        return window.cardDatabase.filter(card => 
-            card.name.toLowerCase().includes(query.toLowerCase())
-        ).sort((a, b) => a.name.localeCompare(b.name));
-    }
+        const results = window.cardDatabase.filter(card => 
+            card.name.toLowerCase().includes(query)
+        );
+        
+        displayResults(results);
+    });
     
+    // Display search results
     function displayResults(results) {
         autocompleteResults.innerHTML = '';
         
-        if (!results || results.length === 0) {
-            const noResults = document.createElement('div');
-            noResults.className = 'no-results';
-            noResults.textContent = 'No cards found';
-            autocompleteResults.appendChild(noResults);
+        if (results.length === 0) {
+            autocompleteResults.innerHTML = '<div class="no-results">No cards found</div>';
         } else {
             results.forEach(card => {
                 const item = document.createElement('div');
@@ -71,37 +110,25 @@ function setupSearch() {
                     <span class="card-name">${card.name}</span>
                     <span class="card-type">${card.type}</span>
                 `;
-                item.addEventListener('click', () => {
+                item.addEventListener('click', function() {
                     showCardDetails(card.id);
                     window.location.hash = `card-${card.id}`;
                 });
                 autocompleteResults.appendChild(item);
             });
         }
-        
         autocompleteResults.style.display = 'block';
     }
     
-    searchInput.addEventListener('input', () => {
-        const results = searchCards(searchInput.value);
-        displayResults(results);
-    });
-    
-    searchInput.addEventListener('focus', () => {
-        if (searchInput.value.length > 0) {
-            const results = searchCards(searchInput.value);
-            displayResults(results);
-        }
-    });
-    
-    document.addEventListener('click', (e) => {
-        if (e.target !== searchInput && !autocompleteResults.contains(e.target)) {
+    // Hide results when clicking elsewhere
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !autocompleteResults.contains(e.target)) {
             autocompleteResults.style.display = 'none';
         }
     });
 }
 
-// Card detail view functionality
+// Show card details
 function showCardDetails(cardId) {
     const card = window.cardDatabase.find(c => c.id === cardId);
     if (!card) return;
@@ -157,36 +184,25 @@ function setupBackButton() {
     const backButton = document.getElementById('backButton');
     if (!backButton) return;
     
-    backButton.addEventListener('click', () => {
+    backButton.addEventListener('click', function() {
         document.getElementById('searchSection').style.display = 'block';
         document.getElementById('rulesSection').style.display = 'block';
         document.getElementById('cardDetailContainer').style.display = 'none';
         window.location.hash = '';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('autocompleteResults').style.display = 'none';
     });
 }
 
-// Fallback card database
-window.cardDatabase = window.cardDatabase || [
-    {
-        id: "goomba",
-        name: "Goomba",
-        type: "Common Creature",
-        description: "",
-        stats: {
-        },
-        image: "Images/goomba.png",
-    },
-    {
-        id: "baseline-earth",
-        name: "Baseline Earth",
-        type: "Terrain",
-        description: "",
-        stats: {
-        },
-        image: "Images/earth.png"
-        ]
-    }
-];
-
-// Initialize the app when DOM is loaded
-document.addEventListener('DOMContentLoaded', initApp);
+// Try to load database.json
+fetch('database.json')
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+    })
+    .then(data => {
+        window.cardDatabase = data.cards || data;
+    })
+    .catch(error => {
+        console.log("Using fallback card data:", error);
+    });
