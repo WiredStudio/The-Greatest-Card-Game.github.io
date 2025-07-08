@@ -13,21 +13,27 @@
         <!-- Card details will be loaded here -->
     </div>
 
+<script>
+// Get card ID from URL hash (#card-goomba) instead of query parameter
+const cardId = window.location.hash.replace('#card-', '');
+const card = window.cardDatabase.find(c => c.id === cardId);
+
+if (card) {
+  displayCardDetails(card);
+} else {
+  document.getElementById('cardDetails').innerHTML = `
+    <h2>Card not found</h2>
+    <p>Return to <a href="index.html">home page</a></p>
+  `;
+}
+</script>
+    
     <script src="scripts/main.js"></script>
     <script>
+
+        
         // Load card data from database.json
         fetch('database.json')
-
-            const cardId = window.location.hash.replace('#card-', '');
-            const card = window.cardDatabase.find(c => c.id === cardId);
-
-                if (card) {
-                  displayCardDetails(card);
-                    } else {
-                      document.getElementById('cardDetails').innerHTML = `
-                        <h2>Card not found</h2>
-                        <p>Return to <a href="index.html">home page</a></p`;
-                           }
         
             .then(response => response.json())
             .then(data => {
