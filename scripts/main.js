@@ -171,31 +171,19 @@ window.cardDatabase = window.cardDatabase || [
         id: "goomba",
         name: "Goomba",
         type: "Common Creature",
-        description: "A small, brown mushroom-like creature. Weak but appears in large numbers.",
+        description: "",
         stats: {
-            attack: 1,
-            defense: 1,
-            cost: 1
         },
         image: "Images/goomba.png",
-        rules: [
-            "Can attack the turn it's played",
-            "When defeated, opponent gains 1 PT"
-        ]
     },
     {
         id: "baseline-earth",
         name: "Baseline Earth",
         type: "Terrain",
-        description: "Fundamental earth element that provides stability and defense.",
+        description: "",
         stats: {
-            defense: 3,
-            cost: 2
         },
-        image: "Images/earth.png",
-        rules: [
-            "Permanent card",
-            "Provides +1 defense to adjacent units"
+        image: "Images/earth.png"
         ]
     }
 ];
