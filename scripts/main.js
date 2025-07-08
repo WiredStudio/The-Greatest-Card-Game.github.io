@@ -61,7 +61,7 @@ function setupDarkMode() {
         const isDarkMode = body.classList.contains('dark-mode');
         
         // Update UI and save preference
-        darkModeToggle.textContent = isDarkMode ? '🌞' : '🌓';
+        darkModeToggle.textContent = isDarkMode ? '🌞' : '<img src="./Images/Drill.gif">';
         localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
     });
 }
