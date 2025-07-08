@@ -40,7 +40,7 @@
     },
     {
       "id": "baseline-earth",
-      "name": "Baseline Earth",When weapon is equipped to a unit the unit needs to roll a D6 every time they attack. If the unit rolls a 6, deal double damage otherwise deal the unit’s base damage.",
+      "name": "Baseline Earth",
       "type": "Terrain",
       "description": "",
       
