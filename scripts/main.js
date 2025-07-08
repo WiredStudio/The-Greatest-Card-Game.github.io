@@ -10,15 +10,8 @@ const fallbackCards = [
         type: "Common Creature",
         description: "A small, brown mushroom-like creature. Weak but appears in large numbers. (Fallback Data)",
         stats: {
-            attack: 1,
-            defense: 1,
-            cost: 1
         },
         image: "Images/goomba.png",
-        rules: [
-            "Can attack the turn it's played",
-            "When defeated, opponent gains 1 PT"
-        ]
     },
     {
         id: "baseline-earth",
@@ -26,14 +19,8 @@ const fallbackCards = [
         type: "Terrain",
         description: "Fundamental earth element that provides stability and defense. (Fallback Data)",
         stats: {
-            defense: 3,
-            cost: 2
         },
         image: "Images/earth.png",
-        rules: [
-            "Permanent card",
-            "Provides +1 defense to adjacent units"
-        ]
     }
 ];
 
