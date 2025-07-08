@@ -22,7 +22,7 @@
             
             <div class="quick-info">
                 <h3>Quick Game Info</h3>
-                <ul id="quickInfoList">
+                <ul>
                     <li><strong>Deck Size:</strong> 32 Cards</li>
                     <li><strong>Starting HP:</strong> 25 PHP</li>
                     <li><strong>Starting Hand:</strong> 5 Cards</li>
@@ -31,57 +31,80 @@
             </div>
         </div>
         
-        <div class="rules-section" id="rulesSection">
-            <!-- Rules will be loaded from database.json -->
+        <div class="rules-section">
+            <h2>Game Rules</h2>
+            
+            <span class="rule-category">Game Setup</span>
+            <ul class="rules-list">
+                <li>Flip a coin to see who goes first</li>
+                <li>Each player starts with 5 cards</li>
+                <li>Playing deck is 32 cards with no duplicates</li>
+            </ul>
+            
+            <span class="rule-category">Turn Structure</span>
+            <ul class="rules-list">
+                <li>Players draw 2 cards per turn</li>
+                <li>Players gain 3 PT every turn (increases by 1 each turn, max 10 PT/turn)</li>
+                <li>Players cannot attack on their first turn</li>
+            </ul>
+            
+            <span class="rule-category">Gameplay</span>
+            <ul class="rules-list">
+                <li>Goal: Reduce opponent's PHP to 0</li>
+                <li>Land is permanent</li>
+                <li>If an object is both land and another card type, it can be played only as land</li>
+                <li>Units cannot exceed one equipment (unless stated otherwise)</li>
+                <li>You cannot damage the player if units are on board (unless stated otherwise)</li>
+            </ul>
+            
+            <span class="rule-category">Special Rules</span>
+            <ul class="rules-list">
+                <li>If a number has a decimal, round up</li>
+                <li>Making a noise is defined as a card requiring to say something</li>
+                <li>No curse words (<a href="https://en.wiktionary.org/wiki/Category:English_swear_words" target="_blank">defined here</a>)</li>
+                <li>No sexual comments (<a href="https://www.eeoc.gov/sexual-harassment" target="_blank">defined here</a>)</li>
+            </ul>
         </div>
     </div>
 
     <script src="scripts/main.js"></script>
     <script>
-        // Load data and initialize page
+        // Load card data from database.json
         fetch('database.json')
             .then(response => response.json())
             .then(data => {
                 window.cardDatabase = data.cards;
-                displayRules(data.gameRules);
                 setupSearch();
                 setupDarkMode();
             })
-            .catch(error => console.error('Error loading database:', error));
-
-        function displayRules(rules) {
-            const rulesSection = document.getElementById('rulesSection');
-            rulesSection.innerHTML = `
-                <h2>Game Rules</h2>
-                <span class="rule-category">Game Setup</span>
-                <ul class="rules-list">
-                    ${rules.setup.map(rule => `<li>${rule}</li>`).join('')}
-                </ul>
-                
-                <span class="rule-category">Turn Structure</span>
-                <ul class="rules-list">
-                    ${rules.turnStructure.map(rule => `<li>${rule}</li>`).join('')}
-                </ul>
-                
-                <span class="rule-category">Gameplay</span>
-                <ul class="rules-list">
-                    ${rules.gameplay.map(rule => `<li>${rule}</li>`).join('')}
-                </ul>
-                
-                <span class="rule-category">Special Rules</span>
-                <ul class="rules-list">
-                    ${rules.specialRules.map(rule => {
-                        if (rule.includes('curse words')) {
-                            return `<li>No curse words (<a href="https://en.wiktionary.org/wiki/Category:English_swear_words" target="_blank">defined here</a>)</li>`;
-                        }
-                        if (rule.includes('sexual comments')) {
-                            return `<li>No sexual comments (<a href="https://www.eeoc.gov/sexual-harassment" target="_blank">defined here</a>)</li>`;
-                        }
-                        return `<li>${rule}</li>`;
-                    }).join('')}
-                </ul>
-            `;
-        }
+            .catch(error => {
+                console.error('Error loading card database:', error);
+                // Fallback data if fetch fails
+                window.cardDatabase = [
+                    {
+                        "id": "goomba",
+                        "name": "Goomba",
+                        "type": "Common Creature",
+                        "description": "Went to FallBack data",
+                        "stats": {
+                            "attack": 1,
+                            "cost": 1
+                        },
+                        "image": "Images/Goomba.png"
+                    },
+                    {
+                        "id": "baseline-earth",
+                        "name": "Baseline Earth",
+                        "type": "Terrain",
+                        "description": "Went to FallBack data",
+                        "stats": {
+                        },
+                        "image": "Images/Earth.png"
+                    }
+                ];
+                setupSearch();
+                setupDarkMode();
+            });
     </script>
 </body>
 </html>
