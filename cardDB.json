@@ -1,274 +1,55 @@
 {
-  id: "Goomba",
-  name: "Goomba",
-  type: "Common Creature",
-  description: "Mushroom? Rat? Who knows: When played stun the lowest PT valued enemy unit and this card.",
-  
-  stats: {
-  HP: 1,
-  attack: 1,
-  cost: 1
-  },
-  
-  image: "Images/Goomba.png"
-},
-{
-  id: "Baseline-Earth",
-  name: "Baseline Earth",
-  type: "Terrain",
-  description: "Any unit card with the Phineas and Ferb logo will gain +2 HP while this card is in effect.",
-  
-  stats: {
-  HP: 3,
-  cost: 2
-  },
-  
-  image: "Images/Earth.png"
-},
-{
-  id: "Backyard",
-  name: "Backyard",
-  type: "Terrain",
-  description: "Any unit card with the Phineas and Ferb logo will gain +2 HP while this card is in effect.",
-  
-  stats: {
-  HP: 2,
-  cost: 2
-  },
-  
-  image: "Images/Backyard.png"
-},
-
-{
-  id: "Scattergun",
-  name: "Scattergun",
-  type: "Consumable",
-  description: "When weapon is equipped to a unit the unit needs to roll a D6 every time they attack. If the unit rolls a 6, deal double damage otherwise deal the unit’s base damage.",
-  
-  stats: {
-  cost: 3
-  },
-  image: "Images/Scattergun.png"
-},
-
-{
-id: "Dr Pepper",
-name: "Dr Pepper",
-type: "Consumable",
-description: "Dr of the Peps: Choose one of your units to gain +1 hp and +1 attack damage for 2 rounds.",
-
-stats: {
-cost: 2
-},
-image: "Images/Scattergun.png"
-},
-{
-id: "Fireball",
-name: "Fireball",
-type: "Consumable",
-description: "Fireball: Deals 3 Damage to select unit, if there are more than 3 units in play deal 1 damage to every unit, including yours.",
-
-stats: {
-cost: 3
-},
-
-image: "Images/Fireball.png"
-},
-{
-id: "Jimbo",
-name: "Jimbo",
-type: "Consumable",
-description: "Jimbo: +4 HP or AK to any selected unit",
-
-stats: {
-cost: 5
-},
-
-image: "Images/Jimbo.png"
-},	    
-{
-id: "Counterspell",
-name: "Counterspell",
-type: "Consumable",
-description: "I CAST COUNTERSPELL: If enemy plays a consumable targeting one of your units, negate its ability. Can be used at any time.",
-
-stats: {
-cost: 3
-},
-
-image: "Images/Jimbo.png"
-},
-{
-id: "Useless Box",
-name: "Useless Box",
-type: "Consumable",
-description: "Draw one card",
-
-stats: {
-cost: 0
-},
-
-image: "Images/Useless_Box.png"
-},
-{
-id: "R.E.P.O Bot",
-name: "R.E.P.O Bot",
-type: "Consumable",
-description: "Repossession: Play this card immediately after the enemy has played a consumable or equipment. Roll a D3. On a 3 ignore all effects from said card and use it’s ability for yourself. On a 1-2, this card does nothing.",
-
-stats: {
-cost: 4
-},
-
-image: "Images/R.E.P.O_Bot.png"
-},
-{
-id: "James Workshop",
-name: "James Workshop",
-type: "Consumable",
-description: "Overpriced Minis: The enemy player gains one less PT on the start of their next turn.",
-
-stats: {
-cost: 4
-},
-
-image: "Images/James_Workshop.png"
-},
-{
-id: "Daemonbreath Spear",
-name: "Daemonbreath Spear",
-type: "Consumable",
-description: "Wardog Bullshit: Roll a D6, if result is a 6 deal a additional 3 damage when unit attacks. Effects: +2 AK",
-
-stats: {
-cost: 4
-},
-
-image: "Images/Daemonbreath_Spear.png"
-},
-{
-id: "The-Helldiver",
-name: "The Helldiver",
-type: "Common Creature",
-description: "Democracy Protects: When first destroyed remove card from play then put card back in hand start of next turn.",
-
-stats: {
-HP: 2,
-attack: 2,
-cost: 1
-},
-
-image: "Images/Helldiver.png"
-},
-{
-id: "Rasputin",
-name: "Rasputin",
-type: "Common Creature",
-description: 'Lady’s Man: All allied female units gain +1 HP and all enemy female units gain -1 HP. If female unit is destroyed by “Lady’s Man”, Rasputin gain +1 HP',
-
-stats: {
-HP: 1,
-attack: 2,
-cost: 1
-},
-
-image: "Images/Rasputin.png"
-},
-{
-id: "Minecraft-Player",
-name: "Minecraft Player",
-type: "Common Creature",
-description: "Unlimited Carry Strength: This unit can carry 3 equipment",
-
-stats: {
-HP: 2,
-attack: 1,
-cost: 2
-},
-
-image: "Images/Minecraft Player.png"
-},
-{
-id: "501st-Clone-trooper",
-name: "501st Clone trooper",
-type: "Common Creature",
-description: "",
-
-stats: {
-HP: 2,
-attack: 1,
-cost: 1
-},
-
-image: "Images/501st Clone trooper.png"
-},
-{
-id: "Automaton",
-name: "Automaton",
-type: "Common Creature",
-description: "Socialist Robot: When played, give +1 HP to all allied units, gain -1 HP per unit.",
-
-stats: {
-HP: 2,
-attack: 1,
-cost: 1
-},
-
-image: "Images/Automaton.png"
-},
-{
-id: "B1-Battle-Droid",
-name: "B1 Battle Droid",
-type: "Common Creature",
-description: "Space Racism: When an enemy player calls this card a “Clanker” it gets sad and -1 AK.",
-
-stats: {
-HP: 2,
-attack: 2,
-cost: 1
-},
-
-image: "Images/B1 Battle Droid.png"
-},
-{
-id: "Dale",
-name: "Dale",
-type: "Common Creature",
-description: "Dale’s supply: At the start of your turn if Dawson is in play, Gain +1 HP",
-
-stats: {
-HP: 2,
-attack: 1,
-cost: 1
-},
-
-image: "Images/Dale.png"
-},
-{
-id: "Gorge-Gob-The-5th",
-name: "Gorge Gob The 5th",
-type: "Common Creature",
-description: "BONK!: Every time this unit attacks, add 1 to it’s AK. Weak Potion: When played, halves a targeted unit’s attack damage.",
-
-stats: {
-HP: 1,
-attack: 1,
-cost: 3
-},
-
-image: "Images/Gorge Gob The 5th.png"
-},
-{
-id: "Chell",
-name: "Chell",
-type: "Common Creature",
-description: "Portal Loop: Stuns a enemy unit for one turn. Cooldown: per 2 turns",
-
-stats: {
-HP: 2,
-attack: 1,
-cost: 3
-},
-
-image: "Images/Chell.png"
+  "cards": [
+    {
+      "id": "goomba",
+      "name": "Goomba",
+      "type": "Common Creature",
+      "description": "",
+      "stats": {
+        "attack": 1,
+        "cost": 1
+      },
+      "image": "goomba.jpg",
+      ]
+    },
+    {
+      "id": "baseline-earth",
+      "name": "Baseline Earth",
+      "type": "Terrain",
+      "description": "",
+      "stats": {
+        "cost": 2
+      },
+      "image": "earth.jpg",
+      ]
+    }
+  ],
+  "gameRules": {
+    "setup": [
+      "Flip a coin to see who goes first",
+      "Start game by drawing 5 cards",
+      "Playing deck is 32 Cards with no duplicates"
+    ],
+    "turnStructure": [
+      "Draw 2 cards per turn",
+      "Players gain 3 PT every turn (increases by 1 each turn, max 10 PT/turn)",
+      "Players cannot attack their first turn"
+    ],
+    "gameplay": [
+      "Each player starts with 25 PHP (Player HP)",
+      "Goal is to make the enemy's PHP = 0",
+      "You cannot damage the player if units are on board, unless stated otherwise",
+      "Units cannot exceed one equipment, unless stated otherwise",
+      "Land is permanent",
+      "If an object is both land and another card type, it can be played only as a land"
+    ],
+    "specialRules": [
+      "If a number has a decimal, round up",
+      "Making a noise is defined as a card requiring to say something",
+      "No curse words (as defined by Wiktionary)",
+      "No sexual comments (as defined by EEOC)",
+      "A playing deck is 32 Cards",
+      "No dupes"
+    ]
+  }
 }
