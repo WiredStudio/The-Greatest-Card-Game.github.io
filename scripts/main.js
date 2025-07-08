@@ -52,7 +52,7 @@ function setupDarkMode() {
         body.classList.add('dark-mode');
         darkModeToggle.textContent = '🌞';
     } else {
-        darkModeToggle.textContent = '<img src="./Images/Drill.gif">';
+        darkModeToggle.textContent = '🌕';
     }
     
     // Toggle functionality
@@ -61,7 +61,7 @@ function setupDarkMode() {
         const isDarkMode = body.classList.contains('dark-mode');
         
         // Update UI and save preference
-        darkModeToggle.textContent = isDarkMode ? '🌞' : '<img src="./Images/Drill.gif">';
+        darkModeToggle.textContent = isDarkMode ? '🌞' : '🌕';
         localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
     });
 }
