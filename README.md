@@ -1,4 +1,5 @@
 The Greatest Card Game Database
+
 This website provides a simple, organized database for "The Greatest Card Game" - a custom card game created by me and my friends.
 
 Why This Exists
