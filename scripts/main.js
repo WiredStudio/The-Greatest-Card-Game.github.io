@@ -1,11 +1,20 @@
-// scripts/main.js
+// Initialize the application
+function initApp() {
+    setupDarkMode();
+    setupSearch();
+    setupBackButton();
+    
+    // Check URL hash for card view
+    if (window.location.hash.startsWith('#card-')) {
+        showCardDetails(window.location.hash.replace('#card-', ''));
+    }
+}
 
-// Initialize dark mode
+// Dark mode functionality
 function setupDarkMode() {
     const darkModeToggle = document.getElementById('darkModeToggle');
     const body = document.body;
     
-    // Check for saved user preference
     if (localStorage.getItem('darkMode') === 'enabled') {
         body.classList.add('dark-mode');
         if (darkModeToggle) darkModeToggle.textContent = '🌞';
@@ -27,7 +36,7 @@ function setupDarkMode() {
     }
 }
 
-// Initialize search functionality
+// Search functionality
 function setupSearch() {
     const searchInput = document.getElementById('searchInput');
     const autocompleteResults = document.getElementById('autocompleteResults');
@@ -63,8 +72,8 @@ function setupSearch() {
                     <span class="card-type">${card.type}</span>
                 `;
                 item.addEventListener('click', () => {
-                    // Use hash-based navigation for GitHub Pages compatibility
-                    window.location.href = `card.html#card-${card.id}`;
+                    showCardDetails(card.id);
+                    window.location.hash = `card-${card.id}`;
                 });
                 autocompleteResults.appendChild(item);
             });
@@ -90,21 +99,16 @@ function setupSearch() {
             autocompleteResults.style.display = 'none';
         }
     });
-    
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const firstResult = document.querySelector('.autocomplete-item');
-            if (firstResult) {
-                firstResult.click();
-            }
-        }
-    });
 }
 
-// Display card details (used in card.html)
-function displayCardDetails(card) {
-    const cardDetails = document.getElementById('cardDetails');
-    if (!cardDetails) return;
+// Card detail view functionality
+function showCardDetails(cardId) {
+    const card = window.cardDatabase.find(c => c.id === cardId);
+    if (!card) return;
+    
+    document.getElementById('searchSection').style.display = 'none';
+    document.getElementById('rulesSection').style.display = 'none';
+    document.getElementById('cardDetailContainer').style.display = 'block';
     
     let statsHTML = '';
     if (card.stats) {
@@ -132,7 +136,7 @@ function displayCardDetails(card) {
         `;
     }
     
-    cardDetails.innerHTML = `
+    document.getElementById('cardDetails').innerHTML = `
         <div class="card-header">
             <img src="${card.image}" alt="${card.name}" class="card-image" onerror="this.src='https://via.placeholder.com/200x280?text=Card+Image'">
             <div>
@@ -148,73 +152,32 @@ function displayCardDetails(card) {
     `;
 }
 
-// Initialize the card page (for card.html)
-function initCardPage() {
-    // Get card ID from URL hash
-    const cardId = window.location.hash.replace('#card-', '');
+// Back button functionality
+function setupBackButton() {
+    const backButton = document.getElementById('backButton');
+    if (!backButton) return;
     
-    // First try to use the already loaded database
-    if (window.cardDatabase) {
-        const card = window.cardDatabase.find(c => c.id === cardId);
-        if (card) {
-            displayCardDetails(card);
-            return;
-        }
-    }
-    
-    // If not found, try to load database.json
-    fetch('database.json')
-        .then(response => response.json())
-        .then(data => {
-            const card = data.cards.find(c => c.id === cardId);
-            if (card) {
-                displayCardDetails(card);
-            } else {
-                showCardError();
-            }
-        })
-        .catch(error => {
-            console.error('Error loading card data:', error);
-            showCardError();
-        });
+    backButton.addEventListener('click', () => {
+        document.getElementById('searchSection').style.display = 'block';
+        document.getElementById('rulesSection').style.display = 'block';
+        document.getElementById('cardDetailContainer').style.display = 'none';
+        window.location.hash = '';
+    });
 }
 
-function showCardError() {
-    const cardDetails = document.getElementById('cardDetails');
-    if (cardDetails) {
-        cardDetails.innerHTML = `
-            <h2>Card not found</h2>
-            <p>Return to <a href="index.html">home page</a></p>
-        `;
-    }
-}
-
-// Initialize the app based on which page we're on
-function initApp() {
-    setupDarkMode();
-    
-    if (document.getElementById('searchInput')) {
-        // We're on index.html
-        setupSearch();
-    } else if (document.getElementById('cardDetails')) {
-        // We're on card.html
-        initCardPage();
-    }
-}
-
-// Start the app when DOM is loaded
-document.addEventListener('DOMContentLoaded', initApp);
-
-// Fallback card database if fetch fails
+// Fallback card database
 window.cardDatabase = window.cardDatabase || [
     {
         id: "goomba",
         name: "Goomba",
         type: "Common Creature",
-        description: "",
+        description: "A small, brown mushroom-like creature. Weak but appears in large numbers.",
         stats: {
+            attack: 1,
+            defense: 1,
+            cost: 1
         },
-        image: "",
+        image: "Images/goomba.png",
         rules: [
             "Can attack the turn it's played",
             "When defeated, opponent gains 1 PT"
@@ -224,13 +187,18 @@ window.cardDatabase = window.cardDatabase || [
         id: "baseline-earth",
         name: "Baseline Earth",
         type: "Terrain",
-        description: "",
+        description: "Fundamental earth element that provides stability and defense.",
         stats: {
+            defense: 3,
+            cost: 2
         },
-        image: "",
+        image: "Images/earth.png",
         rules: [
             "Permanent card",
             "Provides +1 defense to adjacent units"
         ]
     }
 ];
+
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', initApp);
