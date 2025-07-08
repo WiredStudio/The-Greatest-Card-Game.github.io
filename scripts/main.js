@@ -46,8 +46,8 @@ function setupDarkMode() {
     const body = document.body;
     
     // Initialize from localStorage
-if (localStorage.getItem('darkMode') === 'enabled') {
-        document.body.classList.add('dark-mode');
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        body.classList.add('dark-mode');
         darkModeToggle.textContent = '🌞';
     } else {
         darkModeToggle.textContent = '🌓';
@@ -75,7 +75,8 @@ function setupSearch(cardDatabase) {
     function searchCards(query) {
         if (!query) return [];
         return cardDatabase.filter(card => 
-            card.name.toLowerCase().includes(query.toLowerCase())
+            card.name.toLowerCase().includes(query.toLowerCase()) ||
+            (card.description && card.description.toLowerCase().includes(query.toLowerCase()))
         ).sort((a, b) => a.name.localeCompare(b.name));
     }
     
@@ -84,6 +85,7 @@ function setupSearch(cardDatabase) {
         
         if (results.length === 0) {
             autocompleteResults.innerHTML = '<div class="no-results">No cards found</div>';
+            autocompleteResults.style.display = 'block';
         } else {
             results.forEach(card => {
                 const item = document.createElement('div');
@@ -98,13 +100,18 @@ function setupSearch(cardDatabase) {
                 });
                 autocompleteResults.appendChild(item);
             });
+            autocompleteResults.style.display = 'block';
         }
-        autocompleteResults.style.display = 'block';
     }
     
     // Event listeners
     searchInput.addEventListener('input', () => {
-        displayResults(searchCards(searchInput.value.trim()));
+        const query = searchInput.value.trim();
+        if (!query) {
+            autocompleteResults.style.display = 'none';
+            return;
+        }
+        displayResults(searchCards(query));
     });
     
     document.addEventListener('click', (e) => {
@@ -125,32 +132,26 @@ function showCardDetails(card) {
     document.getElementById('cardDetailContainer').style.display = 'block';
     
     // Generate stats HTML if they exist
-    const statsHTML = card.stats ? `
-        <div class="card-stats">
-            ${Object.entries(card.stats).map(([key, value]) => `
-                <div class="stat">
-                    <div class="stat-label">${key}</div>
-                    <div class="stat-value">${value}</div>
-                </div>
-            `).join('')}
-        </div>
-    ` : '';
-    
-    // Generate rules HTML if they exist
-    const rulesHTML = card.rules?.length ? `
-        <div class="card-rules">
-            <h3>Special Rules</h3>
-            <ul>
-                ${card.rules.map(rule => `<li>${rule}</li>`).join('')}
-            </ul>
-        </div>
-    ` : '';
+    let statsHTML = '';
+    if (card.stats && Object.keys(card.stats).length > 0) {
+        statsHTML = `
+            <div class="card-stats">
+                ${Object.entries(card.stats).map(([key, value]) => `
+                    <div class="stat">
+                        <div class="stat-label">${key.toUpperCase()}</div>
+                        <div class="stat-value">${value}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    }
     
     // Display the card
+    const placeholder = 'https://via.placeholder.com/200x280?text=Card+Image';
     document.getElementById('cardDetails').innerHTML = `
         <div class="card-header">
-            <img src="${card.image}" alt="${card.name}" class="card-image" 
-                 onerror="this.src='https://via.placeholder.com/200x280?text=Card+Image'">
+            <img src="${card.image || placeholder}" alt="${card.name}" class="card-image" 
+                 onerror="this.src='${placeholder}'">
             <div>
                 <h1 class="card-title">${card.name}</h1>
                 <span class="card-type">${card.type}</span>
@@ -158,9 +159,8 @@ function showCardDetails(card) {
             </div>
         </div>
         <div class="card-description">
-            <p>${card.description}</p>
+            <p>${card.description || 'No description available'}</p>
         </div>
-        ${rulesHTML}
     `;
 }
 
@@ -189,6 +189,7 @@ function setupBackButton() {
 async function initializeApp() {
     // Load cards first
     const cards = await loadCardDatabase();
+    console.log('Loaded cards:', cards.length);
     
     // Then setup all functionality
     setupDarkMode();
@@ -196,12 +197,20 @@ async function initializeApp() {
     setupBackButton();
     
     // Check for card in URL
+    if (window.location.hash.startsWith('#card-')) {
+        const cardId = window.location.hash.replace('#card-', '');
+        const card = cards.find(c => c.id === cardId);
+        if (card) showCardDetails(card);
+    }
+    
+    // Handle direct card links when hash changes
     window.addEventListener('hashchange', () => {
         if (window.location.hash.startsWith('#card-')) {
             const cardId = window.location.hash.replace('#card-', '');
             const card = cards.find(c => c.id === cardId);
             if (card) showCardDetails(card);
-    }
+        }
+    });
 }
 
 // Start the app when DOM is ready
