@@ -53,4 +53,45 @@ function setupSearch() {
         } else {
             results.forEach(card => {
                 const item = document.createElement('div');
-                item.className =
+                item.className = 'autocomplete-item';
+                item.innerHTML = `
+                    <span class="card-name">${card.name}</span>
+                    <span class="card-type">${card.type}</span>
+                `;
+                item.addEventListener('click', () => {
+                    window.location.href = `card.html?id=${card.id}`;
+                });
+                autocompleteResults.appendChild(item);
+            });
+        }
+        
+        autocompleteResults.style.display = 'block';
+    }
+    
+    searchInput.addEventListener('input', () => {
+        const results = searchCards(searchInput.value);
+        displayResults(results);
+    });
+    
+    searchInput.addEventListener('focus', () => {
+        if (searchInput.value.length > 0) {
+            const results = searchCards(searchInput.value);
+            displayResults(results);
+        }
+    });
+    
+    document.addEventListener('click', (e) => {
+        if (e.target !== searchInput && !autocompleteResults.contains(e.target)) {
+            autocompleteResults.style.display = 'none';
+        }
+    });
+    
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const firstResult = document.querySelector('.autocomplete-item');
+            if (firstResult) {
+                firstResult.click();
+            }
+        }
+    });
+}       
