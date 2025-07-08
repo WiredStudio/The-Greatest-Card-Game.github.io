@@ -11,7 +11,7 @@
         "cost": 1
       },
       
-      "image": "goomba.jpg",
+      "image": "Images/Goomba.png",
     },
     {
       "id": "baseline-earth",
@@ -23,7 +23,7 @@
         "cost": 2
       },
       
-      "image": "earth.jpg",
+      "image": "Images/Eoomba.png",
     }
   ],
   "gameRules": {
