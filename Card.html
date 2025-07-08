@@ -13,43 +13,43 @@
         <!-- Card details will be loaded here -->
     </div>
 
-<script src="scripts/main.js"></script>
-  <script>
-    // Get card ID from URL hash
-    const cardId = window.location.hash.replace('#card-', '');
-    
-    // Try to load database first
-    fetch('database.json')
-      .then(response => response.json())
-      .then(data => {
-        const card = data.cards.find(c => c.id === cardId);
-        if (card) {
-          displayCardDetails(card);
-        } else {
-          showError();
-        }
-      })
-      .catch(error => {
-        console.error("Error loading database:", error);
-        // Check fallback data
+    <script src="scripts/main.js"></script>
+    <script>
+        // Get card ID from URL hash
+        const cardId = window.location.hash.replace('#card-', '');
+        
+        // First check if database is already loaded
         if (window.cardDatabase) {
-          const card = window.cardDatabase.find(c => c.id === cardId);
-          if (card) {
-            displayCardDetails(card);
-          } else {
-            showError();
-          }
+            const card = window.cardDatabase.find(c => c.id === cardId);
+            if (card) {
+                displayCardDetails(card);
+            } else {
+                showCardError();
+            }
         } else {
-          showError();
+            // Try to load database
+            fetch('database.json')
+                .then(response => response.json())
+                .then(data => {
+                    const card = data.cards.find(c => c.id === cardId);
+                    if (card) {
+                        displayCardDetails(card);
+                    } else {
+                        showCardError();
+                    }
+                })
+                .catch(error => {
+                    console.error("Error loading card:", error);
+                    showCardError();
+                });
         }
-      });
-    
-    function showError() {
-      document.getElementById('cardDetails').innerHTML = `
-        <h2>Card not found</h2>
-        <p>Return to <a href="index.html">home page</a></p>
-      `;
-    }
-  </script>
+        
+        function showCardError() {
+            document.getElementById('cardDetails').innerHTML = `
+                <h2>Card not found</h2>
+                <p>The card could not be loaded. Return to <a href="index.html">home page</a></p>
+            `;
+        }
+    </script>
 </body>
 </html>
