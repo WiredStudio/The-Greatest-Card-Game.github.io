@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Details - The Greatest Card Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .card-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .card-image {
+            width: 200px;
+            height: 280px;
+            background-color: #eee;
+            border-radius: 10px;
+            margin-right: 20px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            font-size: 24px;
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .card-type {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .card-stats {
+            margin: 20px 0;
+        }
+
+        .stat {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card-description {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back to Search</a>
+
+    <div class="card-container" id="cardDetails">
+        <!-- Card details will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+        // Card database
+        const cardDatabase = [
+        {
+        id: "goomba",
+        name: "Goomba",
+        type: "Common Creature",
+        description: "",
+        stats: {
+        attack: 1,
+        defense: 1,
+        cost: 1
+        },
+        image: "Images/Goomba.png"
+        }, 
+        {
+        id: "baseline-earth",
+        name: "Baseline Earth",
+        type: "Terrain",
+        description: "",
+        stats: {
+        HP: 3,
+        cost: 2
+        },
+        image: "Images/Earth.png"
+        }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const cardId = urlParams.get('id');
+        const card = cardDatabase.find(c => c.id === cardId);
+
+        if (card) {
+        displayCardDetails(card);
+        document.title = `${card.name} - The Greatest Card Game`;
+        } else {
+        document.getElementById('cardDetails').innerHTML = `
+        <h2>Card not found</h2>
+        <p>The requested card could not be found in the database.</p>
+        `;
+        }
+        });
+
+        function displayCardDetails(card) {
+        const cardDetails = document.getElementById('cardDetails');
+
+        let statsHTML = '';
+        if (card.stats) {
+        for (const [key, value] of Object.entries(card.stats)) {
+        statsHTML += `
+        <div class="stat">
+        <div class="stat-label">${key.charAt(0).toUpperCase() + key.slice(1)}</div>
+        <div class="stat-value">${value}</div>
+        </div>
+        `;
+        }
+        }
+
+        cardDetails.innerHTML = `
+        <div class="card-header">
+        <img src="${card.image}" alt="${card.name}" class="card-image">
+        <div>
+        <h1 class="card-title">${card.name}</h1>
+        <span class="card-type">${card.type}</span>
+        <div class="card-stats">
+        ${statsHTML}
+        </div>
+        </div>
+        </div>
+        <div class="card-description">
+        <p>${card.description}</p>
+        </div>
+        `;
+        }
+    </script>
+</body>
+</html>
