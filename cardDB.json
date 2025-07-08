@@ -1,6 +1,31 @@
 {
   "cards": [
     {
+      "id": "Scattergun",
+      "name": "Scattergun",
+      "type": "Common Creature",
+      "description": "When weapon is equipped to a unit the unit needs to roll a D6 every time they attack. If the unit rolls a 6, deal double damage otherwise deal the unit’s base damage.",
+      
+      "stats": {
+        "cost": 3
+      },
+      
+      "image": "Images/Scattergun.png",
+    },
+    {
+      "id": "Backyard",
+      "name": "Backyard",
+      "type": "Common Creature",
+      "description": "Any unit card with the Phineas and Ferb logo will gain +2 HP while this card is in effect.",
+      
+      "stats": {
+        "HP": 2,
+        "cost": 2
+      },
+      
+      "image": "Images/Backyard.png",
+    },
+    {
       "id": "goomba",
       "name": "Goomba",
       "type": "Common Creature",
@@ -15,7 +40,7 @@
     },
     {
       "id": "baseline-earth",
-      "name": "Baseline Earth",
+      "name": "Baseline Earth",When weapon is equipped to a unit the unit needs to roll a D6 every time they attack. If the unit rolls a 6, deal double damage otherwise deal the unit’s base damage.",
       "type": "Terrain",
       "description": "",
       
@@ -23,35 +48,7 @@
         "cost": 2
       },
       
-      "image": "Images/Eoomba.png",
+      "image": "Images/Earth.png",
     }
-  ],
-  "gameRules": {
-    "setup": [
-      "Flip a coin to see who goes first",
-      "Start game by drawing 5 cards",
-      "Playing deck is 32 Cards with no duplicates"
-    ],
-    "turnStructure": [
-      "Draw 2 cards per turn",
-      "Players gain 3 PT every turn (increases by 1 each turn, max 10 PT/turn)",
-      "Players cannot attack their first turn"
-    ],
-    "gameplay": [
-      "Each player starts with 25 PHP (Player HP)",
-      "Goal is to make the enemy's PHP = 0",
-      "You cannot damage the player if units are on board, unless stated otherwise",
-      "Units cannot exceed one equipment, unless stated otherwise",
-      "Land is permanent",
-      "If an object is both land and another card type, it can be played only as a land"
-    ],
-    "specialRules": [
-      "If a number has a decimal, round up",
-      "Making a noise is defined as a card requiring to say something",
-      "No curse words (as defined by Wiktionary)",
-      "No sexual comments (as defined by EEOC)",
-      "A playing deck is 32 Cards",
-      "No dupes"
-    ]
-  }
+  ]
 }
