@@ -10,15 +10,12 @@
 	--link-color: #3498db;
 	--search-bg: rgba(255,255,255,0.9);
 }
-/* (Keep all previous CSS styles from earlier versions) */
 
-/* Add these new styles for the card detail container */
 .card-detail-container {
     width: 100%;
     display: none; /* Hidden by default */
 }
 
-/* Make sure back button has proper spacing */
 .back-button {
     display: inline-block;
     margin-bottom: 20px;
@@ -36,7 +33,6 @@
     background-color: #3e8e41;
 }
 
-/* Ensure proper spacing when showing card details */
 .showing-card #searchSection,
 .showing-card #rulesSection {
     display: none;
