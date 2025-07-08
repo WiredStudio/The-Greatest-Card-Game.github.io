@@ -196,7 +196,7 @@
       "name": "Goomba",
       "type": "Common Creature",
       "description": "Mushroom? Rat? Who knows: When played stun the lowest PT valued enemy unit and this card.",
-      The-Helldiver
+
       "stats": {
         "attack": 1,
         "cost": 1
