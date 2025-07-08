@@ -13,81 +13,43 @@
         <!-- Card details will be loaded here -->
     </div>
 
-<script>
-// Get card ID from URL hash (#card-goomba) instead of query parameter
-const cardId = window.location.hash.replace('#card-', '');
-const card = window.cardDatabase.find(c => c.id === cardId);
-
-if (card) {
-  displayCardDetails(card);
-} else {
-  document.getElementById('cardDetails').innerHTML = `
-    <h2>Card not found</h2>
-    <p>Return to <a href="index.html">home page</a></p>
-  `;
-}
-</script>
+<script src="scripts/main.js"></script>
+  <script>
+    // Get card ID from URL hash
+    const cardId = window.location.hash.replace('#card-', '');
     
-    <script src="scripts/main.js"></script>
-    <script>
-
-        
-        // Load card data from database.json
-        fetch('database.json')
-        
-            .then(response => response.json())
-            .then(data => {
-                setupDarkMode();
-                const urlParams = new URLSearchParams(window.location.search);
-                const cardId = urlParams.get('id');
-                const card = data.cards.find(c => c.id === cardId);
-                
-                if (card) {
-                    displayCardDetails(card);
-                    document.title = `${card.name} - The Greatest Card Game`;
-                } else {
-                    document.getElementById('cardDetails').innerHTML = `
-                        <h2>Card not found</h2>
-                        <p>The requested card could not be found in the database.</p>
-                    `;
-                }
-            })
-            .catch(error => {
-                console.error('Error loading card database:', error);
-                // Handle error or show fallback content
-            });
-
-        function displayCardDetails(card) {
-            const cardDetails = document.getElementById('cardDetails');
-            
-            let statsHTML = '';
-            if (card.stats) {
-                for (const [key, value] of Object.entries(card.stats)) {
-                    statsHTML += `
-                        <div class="stat">
-                            <div class="stat-label">${key.charAt(0).toUpperCase() + key.slice(1)}</div>
-                            <div class="stat-value">${value}</div>
-                        </div>
-                    `;
-                }
-            }
-            
-            cardDetails.innerHTML = `
-                <div class="card-header">
-                    <img src="${card.image}" alt="${card.name}" class="card-image">
-                    <div>
-                        <h1 class="card-title">${card.name}</h1>
-                        <span class="card-type">${card.type}</span>
-                        <div class="card-stats">
-                            ${statsHTML}
-                        </div>
-                    </div>
-                </div>
-                <div class="card-description">
-                    <p>${card.description}</p>
-                </div>
-            `;
+    // Try to load database first
+    fetch('database.json')
+      .then(response => response.json())
+      .then(data => {
+        const card = data.cards.find(c => c.id === cardId);
+        if (card) {
+          displayCardDetails(card);
+        } else {
+          showError();
         }
-    </script>
+      })
+      .catch(error => {
+        console.error("Error loading database:", error);
+        // Check fallback data
+        if (window.cardDatabase) {
+          const card = window.cardDatabase.find(c => c.id === cardId);
+          if (card) {
+            displayCardDetails(card);
+          } else {
+            showError();
+          }
+        } else {
+          showError();
+        }
+      });
+    
+    function showError() {
+      document.getElementById('cardDetails').innerHTML = `
+        <h2>Card not found</h2>
+        <p>Return to <a href="index.html">home page</a></p>
+      `;
+    }
+  </script>
 </body>
 </html>
