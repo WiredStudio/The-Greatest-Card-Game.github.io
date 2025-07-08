@@ -13,8 +13,9 @@
         <p>Search for cards and learn how to play</p>
     </header>
     
-    <div class="container">
-        <div class="search-section">
+    <div class="container" id="mainContainer">
+        <!-- Search and Rules Section (default view) -->
+        <div class="search-section" id="searchSection">
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search for a card (e.g. Goomba, Earth...)" autocomplete="off">
                 <div id="autocompleteResults"></div>
@@ -31,7 +32,7 @@
             </div>
         </div>
         
-        <div class="rules-section">
+        <div class="rules-section" id="rulesSection">
             <h2>Game Rules</h2>
             
             <span class="rule-category">Game Setup</span>
@@ -65,6 +66,12 @@
                 <li>No sexual comments (<a href="https://www.eeoc.gov/sexual-harassment" target="_blank">defined here</a>)</li>
             </ul>
         </div>
+        
+        <!-- Card Detail Section (hidden by default) -->
+        <div class="card-detail-container" id="cardDetailContainer" style="display:none;">
+            <button class="back-button" id="backButton">← Back to Search</button>
+            <div class="card-container" id="cardDetails"></div>
+        </div>
     </div>
 
     <script src="scripts/main.js"></script>
@@ -74,13 +81,13 @@
             .then(response => response.json())
             .then(data => {
                 window.cardDatabase = data.cards;
-                // Initialize search after database is loaded
-                if (window.setupSearch) setupSearch();
+                // Initialize after database is loaded
+                if (window.initApp) initApp();
             })
             .catch(error => {
                 console.log("Using fallback data:", error);
                 // Fallback data is in main.js
-                if (window.setupSearch) setupSearch();
+                if (window.initApp) initApp();
             });
     </script>
 </body>
