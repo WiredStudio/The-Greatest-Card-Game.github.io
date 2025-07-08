@@ -28,9 +28,11 @@ const fallbackCards = [
 async function loadCardDatabase() {
     try {
         const response = await fetch('./database.json');
-        if (!response.ok) throw new Error("Failed to fetch database");
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
-        return data.cards || data; // Handle both {cards:[]} and direct array formats
+        
+        // Handle different JSON structures
+        return Array.isArray(data) ? data : data.cards || fallbackCards;
     } catch (error) {
         console.warn("Using fallback card data:", error);
         return fallbackCards;
@@ -74,9 +76,12 @@ function setupSearch(cardDatabase) {
     
     function searchCards(query) {
         if (!query) return [];
+        const queryLower = query.toLowerCase();
+        
         return cardDatabase.filter(card => 
-            card.name.toLowerCase().includes(query.toLowerCase()) ||
-            (card.description && card.description.toLowerCase().includes(query.toLowerCase()))
+            card.name.toLowerCase().includes(queryLower) ||
+            (card.description && card.description.toLowerCase().includes(queryLower)) ||
+            (card.type && card.type.toLowerCase().includes(queryLower))
         ).sort((a, b) => a.name.localeCompare(b.name));
     }
     
@@ -115,8 +120,32 @@ function setupSearch(cardDatabase) {
     });
     
     document.addEventListener('click', (e) => {
-        if (!searchInput.contains(e.target) {
+        if (!autocompleteResults.contains(e.target) && e.target !== searchInput) {
             autocompleteResults.style.display = 'none';
+        }
+    });
+    
+    // Allow keyboard navigation
+    searchInput.addEventListener('keydown', (e) => {
+        const items = autocompleteResults.querySelectorAll('.autocomplete-item');
+        if (!items.length) return;
+        
+        let currentIndex = -1;
+        
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            currentIndex = 0;
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            currentIndex = items.length - 1;
+        } else if (e.key === 'Enter' && items.length > 0) {
+            e.preventDefault();
+            items[0].click();
+            return;
+        }
+        
+        if (currentIndex > -1) {
+            items[currentIndex].focus();
         }
     });
 }
@@ -146,11 +175,18 @@ function showCardDetails(card) {
         `;
     }
     
+    // Create image URL with fallback
+    let imageUrl = card.image || '';
+    if (imageUrl && !imageUrl.startsWith('http') && !imageUrl.startsWith('data:')) {
+        // Handle relative paths
+        imageUrl = imageUrl.startsWith('/') ? imageUrl : `./${imageUrl}`;
+    }
+    
     // Display the card
     const placeholder = 'https://via.placeholder.com/200x280?text=Card+Image';
     document.getElementById('cardDetails').innerHTML = `
         <div class="card-header">
-            <img src="${card.image || placeholder}" alt="${card.name}" class="card-image" 
+            <img src="${imageUrl}" alt="${card.name}" class="card-image" 
                  onerror="this.src='${placeholder}'">
             <div>
                 <h1 class="card-title">${card.name}</h1>
@@ -189,7 +225,7 @@ function setupBackButton() {
 async function initializeApp() {
     // Load cards first
     const cards = await loadCardDatabase();
-    console.log('Loaded cards:', cards.length);
+    console.log(`Loaded ${cards.length} cards from database`);
     
     // Then setup all functionality
     setupDarkMode();
@@ -200,7 +236,11 @@ async function initializeApp() {
     if (window.location.hash.startsWith('#card-')) {
         const cardId = window.location.hash.replace('#card-', '');
         const card = cards.find(c => c.id === cardId);
-        if (card) showCardDetails(card);
+        if (card) {
+            showCardDetails(card);
+        } else {
+            console.warn(`Card not found: ${cardId}`);
+        }
     }
     
     // Handle direct card links when hash changes
@@ -209,6 +249,11 @@ async function initializeApp() {
             const cardId = window.location.hash.replace('#card-', '');
             const card = cards.find(c => c.id === cardId);
             if (card) showCardDetails(card);
+        } else {
+            // Show main view when hash is empty
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('rulesSection').style.display = 'block';
+            document.getElementById('cardDetailContainer').style.display = 'none';
         }
     });
 }
