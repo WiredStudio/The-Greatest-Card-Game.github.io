@@ -1,42 +1,40 @@
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize dark mode first
-    setupDarkMode();
-    
-    // Then setup search functionality
-    setupSearch();
-    
-    // Then setup back button
-    setupBackButton();
-    
-    // Check URL hash for card view
-    if (window.location.hash.startsWith('#card-')) {
-        const cardId = window.location.hash.replace('#card-', '');
-        showCardDetails(cardId);
-    }
+    // First try to load the database
+    loadDatabase().then(() => {
+        // Then initialize all functionality
+        setupDarkMode();
+        setupSearch();
+        setupBackButton();
+        
+        // Check URL hash for card view
+        if (window.location.hash.startsWith('#card-')) {
+            const cardId = window.location.hash.replace('#card-', '');
+            showCardDetails(cardId);
+        }
+    }).catch(error => {
+        console.error("Failed to load database:", error);
+        // Initialize with fallback data
+        setupDarkMode();
+        setupSearch();
+        setupBackButton();
+    });
 });
 
-// Dark Mode Functionality
-function setupDarkMode() {
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    const body = document.body;
-    
-    // Check for saved preference
-    const savedMode = localStorage.getItem('darkMode');
-    if (savedMode === 'enabled') {
-        body.classList.add('dark-mode');
-        darkModeToggle.textContent = '🌞';
-    }
-    
-    // Toggle functionality
-    darkModeToggle.addEventListener('click', function() {
-        body.classList.toggle('dark-mode');
-        const isDarkMode = body.classList.contains('dark-mode');
-        
-        // Update icon and save preference
-        darkModeToggle.textContent = isDarkMode ? '🌞' : '🌓';
-        localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
-    });
+// Function to load database
+function loadDatabase() {
+    return fetch('database.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Store cards in global variable
+            window.cardDatabase = data.cards || data;
+            console.log("Database loaded successfully:", window.cardDatabase);
+        });
 }
 
 // Search Functionality
