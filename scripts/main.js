@@ -194,10 +194,11 @@ async function initializeApp() {
     setupBackButton();
     
     // Check for card in URL
-    if (window.location.hash.startsWith('#card-')) {
-        const cardId = window.location.hash.replace('#card-', '');
-        const card = cards.find(c => c.id === cardId);
-        if (card) showCardDetails(card);
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash.startsWith('#card-')) {
+            const cardId = window.location.hash.replace('#card-', '');
+            const card = cards.find(c => c.id === cardId);
+            if (card) showCardDetails(card);
     }
 }
 
