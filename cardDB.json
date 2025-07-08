@@ -5,23 +5,25 @@
       "name": "Goomba",
       "type": "Common Creature",
       "description": "",
+      
       "stats": {
         "attack": 1,
         "cost": 1
       },
+      
       "image": "goomba.jpg",
-      ],
     },
     {
       "id": "baseline-earth",
       "name": "Baseline Earth",
       "type": "Terrain",
       "description": "",
+      
       "stats": {
         "cost": 2
       },
+      
       "image": "earth.jpg",
-      ],
     }
   ],
   "gameRules": {
