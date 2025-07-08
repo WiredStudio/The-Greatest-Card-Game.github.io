@@ -13,8 +13,7 @@
         <p>Search for cards and learn how to play</p>
     </header>
     
-    <div class="container" id="mainContainer">
-        <!-- Search and Rules Section (default view) -->
+    <div class="container">
         <div class="search-section" id="searchSection">
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search for a card (e.g. Goomba, Earth...)" autocomplete="off">
@@ -67,7 +66,6 @@
             </ul>
         </div>
         
-        <!-- Card Detail Section (hidden by default) -->
         <div class="card-detail-container" id="cardDetailContainer" style="display:none;">
             <button class="back-button" id="backButton">← Back to Search</button>
             <div class="card-container" id="cardDetails"></div>
@@ -75,20 +73,5 @@
     </div>
 
     <script src="scripts/main.js"></script>
-    <script>
-        // Load database first
-        fetch('database.json')
-            .then(response => response.json())
-            .then(data => {
-                window.cardDatabase = data.cards;
-                // Initialize after database is loaded
-                if (window.initApp) initApp();
-            })
-            .catch(error => {
-                console.log("Using fallback data:", error);
-                // Fallback data is in main.js
-                if (window.initApp) initApp();
-            });
-    </script>
 </body>
 </html>
