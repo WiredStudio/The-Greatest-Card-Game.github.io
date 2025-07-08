@@ -97,29 +97,126 @@
     <script>
         // Card database
         const cardDatabase = [
-        {
-        id: "goomba",
-        name: "Goomba",
-        type: "Common Creature",
-        description: "",
-        stats: {
-        attack: 1,
-        defense: 1,
-        cost: 1
+{
+        	id: "Backyard",
+        	name: "Backyard",
+        	type: "Terrain",
+        	description: "Any unit card with the Phineas and Ferb logo will gain +2 HP while this card is in effect.",
+
+        	stats: {
+        	HP: +2,
+        	cost: 2
         },
-        image: "Images/Goomba.png"
-        }, 
-        {
-        id: "baseline-earth",
-        name: "Baseline Earth",
-        type: "Terrain",
-        description: "",
-        stats: {
-        HP: 3,
-        cost: 2
+        	image: "Images/Backyard.png"
         },
-        image: "Images/Earth.png"
-        }
+
+	{
+        	id: "Scattergun",
+        	name: "Scattergun",
+        	type: "Consumable",
+        	description: "When weapon is equipped to a unit the unit needs to roll a D6 every time they attack. If the unit rolls a 6, deal double damage otherwise deal the unit’s base damage.",
+
+        	stats: {
+        	cost: 3
+        	},
+        	image: "Images/Scattergun.png"
+        },
+
+	{
+        	id: "Dr Pepper",
+        	name: "Dr Pepper",
+        	type: "Consumable",
+        	description: "Dr of the Peps: Choose one of your units to gain +1 hp and +1 attack damage for 2 rounds.",
+
+        	stats: {
+        	cost: 2
+        	},
+        	image: "Images/Scattergun.png"
+        },
+	{
+                id: "Fireball",
+                name: "Fireball",
+                type: "Consumable",
+                description: "Fireball: Deals 3 Damage to select unit, if there are more than 3 units in play deal 1 damage to every unit, including yours.",
+
+                stats: {
+                    cost: 3
+                },
+
+                image: "Images/Fireball.png"
+            },
+	    {
+                id: "Jimbo",
+                name: "Jimbo",
+                type: "Consumable",
+                description: "Jimbo: +4 HP or AK to any selected unit",
+
+                stats: {
+                    cost: 5
+                },
+
+                image: "Images/Jimbo.png"
+            },	    
+	    {
+                id: "Counterspell",
+                name: "Counterspell",
+                type: "Consumable",
+                description: "I CAST COUNTERSPELL: If enemy plays a consumable targeting one of your units, negate its ability. Can be used at any time.",
+
+                stats: {
+                    cost: 3
+                },
+
+                image: "Images/Jimbo.png"
+            },
+	    {
+                id: "Useless Box",
+                name: "Useless Box",
+                type: "Consumable",
+                description: "Draw one card",
+
+                stats: {
+                    cost: 0
+                },
+
+                image: "Images/Useless_Box.png"
+            },
+	    {
+                id: "R.E.P.O Bot",
+                name: "R.E.P.O Bot",
+                type: "Consumable",
+                description: "Repossession: Play this card immediately after the enemy has played a consumable or equipment. Roll a D3. On a 3 ignore all effects from said card and use it’s ability for yourself. On a 1-2, this card does nothing.",
+
+                stats: {
+                    cost: 4
+                },
+
+                image: "Images/R.E.P.O_Bot.png"
+            },
+	    {
+                id: "James Workshop",
+                name: "James Workshop",
+                type: "Consumable",
+                description: "Overpriced Minis: The enemy player gains one less PT on the start of their next turn.",
+
+                stats: {
+                    cost: 4
+                },
+
+                image: "Images/James_Workshop.png"
+            },
+	    {
+                id: "Daemonbreath Spear",
+                name: "Daemonbreath Spear",
+                type: "Consumable",
+                description: "Wardog Bullshit: Roll a D6, if result is a 6 deal a additional 3 damage when unit attacks. Effects: +2 AK",
+
+                stats: {
+                    cost: 4
+                },
+
+                image: "Images/Daemonbreath_Spear.png"
+            },
         ];
 
         document.addEventListener('DOMContentLoaded', function() {
