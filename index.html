@@ -67,38 +67,27 @@
         </div>
     </div>
 
-<script src="scripts/main.js"></script>
-  <script>
-    // Load database
-    fetch('database.json')
-      .then(response => response.json())
-      .then(data => {
-        window.cardDatabase = data.cards;
-        setupSearch();
-        setupDarkMode();
-      })
-      .catch(error => {
-        console.error("Error loading database:", error);
-        // Fallback data
-        window.cardDatabase = [
-          {
-            id: "goomba",
-            name: "Goomba",
-            type: "Common Creature",
-            description: "A small, brown mushroom-like creature.",
-            image: "https://via.placeholder.com/200x280?text=Goomba"
-          },
-          {
-            id: "baseline-earth",
-            name: "Baseline Earth",
-            type: "Terrain",
-            description: "Fundamental earth element.",
-            image: "https://via.placeholder.com/200x280?text=Earth"
-          }
-        ];
-        setupSearch();
-        setupDarkMode();
-      });
-  </script>
+    <!-- Load the database first -->
+    <script>
+        // Try to load from database.json
+        fetch('database.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                window.cardDatabase = data.cards || data; // Handle both formats
+            })
+            .catch(error => {
+                console.log('Using fallback card data:', error);
+                // Fallback data is in main.js
+            })
+            .finally(() => {
+                // Load main.js after we've tried to load the database
+                const script = document.createElement('script');
+                script.src = 'scripts/main.js';
+                document.body.appendChild(script);
+            });
+    </script>
 </body>
 </html>
