@@ -4,218 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Greatest Card Game</title>
-    <style>
-        :root {
-            --bg-color: #f5f5f5;
-            --text-color: #333;
-            --header-bg: #ffffff;
-            --card-bg: #ffffff;
-            --border-color: #ddd;
-            --accent-color: #4CAF50;
-            --shadow-color: rgba(0,0,0,0.1);
-            --rule-category-color: #2c3e50;
-            --link-color: #3498db;
-            --search-bg: rgba(255,255,255,0.9);
-        }
-
-        .dark-mode {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --header-bg: #1e1e1e;
-            --card-bg: #2d2d2d;
-            --border-color: #444;
-            --accent-color: #4CAF50;
-            --shadow-color: rgba(0,0,0,0.3);
-            --rule-category-color: #4CAF50;
-            --link-color: #5d9cec;
-            --search-bg: rgba(40,40,40,0.9);
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--accent-color);
-            background-color: var(--header-bg);
-            padding: 20px;
-            border-radius: 8px;
-            position: relative;
-        }
-
-        h1 {
-            color: var(--rule-category-color);
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .container {
-            display: flex;
-            gap: 30px;
-        }
-
-        .search-section {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .rules-section {
-            flex: 1;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px var(--shadow-color);
-        }
-
-        .search-container {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        #searchInput {
-            width: 90%;
-            padding: 12px 20px;
-            font-size: 16px;
-            border: 2px solid var(--border-color);
-            border-radius: 25px;
-            outline: none;
-            box-shadow: 0 2px 5px var(--shadow-color);
-            background-color: var(--search-bg);
-            color: var(--text-color);
-            transition: all 0.3s;
-        }
-
-            #searchInput:focus {
-                border-color: var(--accent-color);
-            }
-
-        #autocompleteResults {
-            position: absolute;
-            width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0 0 10px 10px;
-            box-shadow: 0 4px 8px var(--shadow-color);
-            z-index: 100;
-            display: none;
-        }
-
-        .autocomplete-item {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-color);
-        }
-
-            .autocomplete-item:hover {
-                background-color: var(--bg-color);
-            }
-
-        .card-name {
-            font-weight: bold;
-        }
-
-        .card-type {
-            font-size: 0.8em;
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-left: 10px;
-        }
-
-        .no-results {
-            padding: 10px 20px;
-            color: var(--text-color);
-            opacity: 0.7;
-            font-style: italic;
-        }
-
-        h2 {
-            color: var(--rule-category-color);
-            margin-top: 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .rules-list {
-            list-style-type: none;
-            padding: 0;
-        }
-
-            .rules-list li {
-                padding: 8px 0;
-                border-bottom: 1px solid var(--border-color);
-            }
-
-                .rules-list li:last-child {
-                    border-bottom: none;
-                }
-
-        .rule-category {
-            font-weight: bold;
-            color: var(--rule-category-color);
-            margin-top: 15px;
-            display: block;
-        }
-
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-        }
-
-            a:hover {
-                text-decoration: underline;
-            }
-
-        .quick-info {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px var(--shadow-color);
-        }
-
-        .dark-mode-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            font-size: 1.5em;
-            cursor: pointer;
-            color: var(--text-color);
-            transition: transform 0.3s;
-        }
-
-            .dark-mode-toggle:hover {
-                transform: scale(1.1);
-            }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            header {
-                padding-top: 50px;
-            }
-
-            .dark-mode-toggle {
-                top: 15px;
-                right: 15px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -223,17 +12,17 @@
         <h1>The Greatest Card Game</h1>
         <p>Search for cards and learn how to play</p>
     </header>
-
+    
     <div class="container">
         <div class="search-section">
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search for a card (e.g. Goomba, Earth...)" autocomplete="off">
                 <div id="autocompleteResults"></div>
             </div>
-
+            
             <div class="quick-info">
                 <h3>Quick Game Info</h3>
-                <ul>
+                <ul id="quickInfoList">
                     <li><strong>Deck Size:</strong> 32 Cards</li>
                     <li><strong>Starting HP:</strong> 25 PHP</li>
                     <li><strong>Starting Hand:</strong> 5 Cards</li>
@@ -241,419 +30,58 @@
                 </ul>
             </div>
         </div>
-
-        <div class="rules-section">
-            <h2>Game Rules</h2>
-
-            <span class="rule-category">Game Setup</span>
-            <ul class="rules-list">
-                <li>Flip a coin to see who goes first</li>
-                <li>Each player starts with 5 cards</li>
-                <li>Playing deck is 32 cards with no duplicates</li>
-            </ul>
-
-            <span class="rule-category">Turn Structure</span>
-            <ul class="rules-list">
-                <li>Players draw 2 cards per turn</li>
-                <li>Players gain 3 PT every turn (increases by 1 each turn, max 10 PT/turn)</li>
-                <li>Players cannot attack on their first turn</li>
-            </ul>
-
-            <span class="rule-category">Gameplay</span>
-            <ul class="rules-list">
-                <li>Goal: Reduce opponent's PHP to 0</li>
-                <li>Land is permanent</li>
-                <li>If an object is both land and another card type, it can be played only as land</li>
-                <li>Units cannot exceed one equipment (unless stated otherwise)</li>
-                <li>You cannot damage the player if units are on board (unless stated otherwise)</li>
-            </ul>
-
-            <span class="rule-category">Special Rules</span>
-            <ul class="rules-list">
-                <li>If a number has a decimal, round up</li>
-                <li>Making a noise is defined as a card requiring to say something</li>
-                <li>No curse words (defined <a href="https://en.wiktionary.org/wiki/Category:English_swear_words" target="_blank">here</a>)</li>
-                <li>No sexual comments (defined <a href="https://www.eeoc.gov/sexual-harassment" target="_blank">here</a>)</li>
-            </ul>
+        
+        <div class="rules-section" id="rulesSection">
+            <!-- Rules will be loaded from database.json -->
         </div>
     </div>
 
+    <script src="scripts/main.js"></script>
     <script>
-        // Dark Mode Toggle
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const body = document.body;
+        // Load data and initialize page
+        fetch('database.json')
+            .then(response => response.json())
+            .then(data => {
+                window.cardDatabase = data.cards;
+                displayRules(data.gameRules);
+                setupSearch();
+                setupDarkMode();
+            })
+            .catch(error => console.error('Error loading database:', error));
 
-        // Check for saved user preference
-        if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
-        darkModeToggle.textContent = '🌞';
+        function displayRules(rules) {
+            const rulesSection = document.getElementById('rulesSection');
+            rulesSection.innerHTML = `
+                <h2>Game Rules</h2>
+                <span class="rule-category">Game Setup</span>
+                <ul class="rules-list">
+                    ${rules.setup.map(rule => `<li>${rule}</li>`).join('')}
+                </ul>
+                
+                <span class="rule-category">Turn Structure</span>
+                <ul class="rules-list">
+                    ${rules.turnStructure.map(rule => `<li>${rule}</li>`).join('')}
+                </ul>
+                
+                <span class="rule-category">Gameplay</span>
+                <ul class="rules-list">
+                    ${rules.gameplay.map(rule => `<li>${rule}</li>`).join('')}
+                </ul>
+                
+                <span class="rule-category">Special Rules</span>
+                <ul class="rules-list">
+                    ${rules.specialRules.map(rule => {
+                        if (rule.includes('curse words')) {
+                            return `<li>No curse words (<a href="https://en.wiktionary.org/wiki/Category:English_swear_words" target="_blank">defined here</a>)</li>`;
+                        }
+                        if (rule.includes('sexual comments')) {
+                            return `<li>No sexual comments (<a href="https://www.eeoc.gov/sexual-harassment" target="_blank">defined here</a>)</li>`;
+                        }
+                        return `<li>${rule}</li>`;
+                    }).join('')}
+                </ul>
+            `;
         }
-
-        darkModeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        const isDarkMode = body.classList.contains('dark-mode');
-
-        if (isDarkMode) {
-        darkModeToggle.textContent = '🌞';
-        localStorage.setItem('darkMode', 'enabled');
-        } else {
-        darkModeToggle.textContent = '🌓';
-        localStorage.setItem('darkMode', 'disabled');
-        }
-        });
-
-        // Card database
-        const cardDatabase = [
-		{
-	                id: "Goomba",
-	                name: "Goomba",
-	                type: "Common Creature",
-	                description: "Mushroom? Rat? Who knows: When played stun the lowest PT valued enemy unit and this card.",
-	
-	                stats: {
-	                    	HP: 1,
-	                    	attack: 1,
-	                    	cost: 1
-	                },
-	
-	                image: "Images/Goomba.png"
-	        },
-	        {
-	                id: "Baseline-Earth",
-	                name: "Baseline Earth",
-	                type: "Terrain",
-	                description: "Any unit card with the Phineas and Ferb logo will gain +2 HP while this card is in effect.",
-			
-			stats: {
-			   	HP: 3,
-			    	cost: 2
-			},
-			
-	                image: "Images/Earth.png"
-	        },
-		{
-	        	id: "Backyard",
-	        	name: "Backyard",
-	        	type: "Terrain",
-	        	description: "Any unit card with the Phineas and Ferb logo will gain +2 HP while this card is in effect.",
-	
-	        	stats: {
-		        	HP: 2,
-		        	cost: 2
-        		},
-			
-        		image: "Images/Backyard.png"
-        	},
-
-		{
-	        	id: "Scattergun",
-	        	name: "Scattergun",
-	        	type: "Consumable",
-	        	description: "When weapon is equipped to a unit the unit needs to roll a D6 every time they attack. If the unit rolls a 6, deal double damage otherwise deal the unit’s base damage.",
-
-	        	stats: {
-        			cost: 3
-        		},
-        		image: "Images/Scattergun.png"
-        	},
-
-		{
-	        	id: "Dr Pepper",
-	        	name: "Dr Pepper",
-	        	type: "Consumable",
-	        	description: "Dr of the Peps: Choose one of your units to gain +1 hp and +1 attack damage for 2 rounds.",
-
-        		stats: {
-        			cost: 2
-	        	},
-	        	image: "Images/Scattergun.png"
-        	},
-		{
-	                id: "Fireball",
-	                name: "Fireball",
-	                type: "Consumable",
-	                description: "Fireball: Deals 3 Damage to select unit, if there are more than 3 units in play deal 1 damage to every unit, including yours.",
-	
-	                stats: {
-		                cost: 3
-	                },
-
-                	image: "Images/Fireball.png"
-            	},
-	    	{
-	                id: "Jimbo",
-	                name: "Jimbo",
-	                type: "Consumable",
-	                description: "Jimbo: +4 HP or AK to any selected unit",
-	
-	                stats: {
-	                    	cost: 5
-	                },
-	
-	                image: "Images/Jimbo.png"
-	        },	    
-	    	{
-	                id: "Counterspell",
-	                name: "Counterspell",
-	                type: "Consumable",
-	                description: "I CAST COUNTERSPELL: If enemy plays a consumable targeting one of your units, negate its ability. Can be used at any time.",
-	
-	                stats: {
-	                    	cost: 3
-	                },
-
-                	image: "Images/Jimbo.png"
-	        },
-	    	{
-	                id: "Useless Box",
-	                name: "Useless Box",
-	                type: "Consumable",
-	                description: "Draw one card",
-	
-	                stats: {
-	                    	cost: 0
-	                },
-
-                	image: "Images/Useless_Box.png"
-            	},
-	    	{
-			id: "R.E.P.O Bot",
-			name: "R.E.P.O Bot",
-			type: "Consumable",
-			description: "Repossession: Play this card immediately after the enemy has played a consumable or equipment. Roll a D3. On a 3 ignore all effects from said card and use it’s ability for yourself. On a 1-2, this card does nothing.",
-
-			stats: {
-			    	cost: 4
-			},
-
-			image: "Images/R.E.P.O_Bot.png"
-	    	},
-	    	{
-	                id: "James Workshop",
-	                name: "James Workshop",
-	                type: "Consumable",
-	                description: "Overpriced Minis: The enemy player gains one less PT on the start of their next turn.",
-
-	                stats: {
-	                    	cost: 4
-	                },
-
-                	image: "Images/James_Workshop.png"
-            	},
-	    	{
-	                id: "Daemonbreath Spear",
-	                name: "Daemonbreath Spear",
-	                type: "Consumable",
-	                description: "Wardog Bullshit: Roll a D6, if result is a 6 deal a additional 3 damage when unit attacks. Effects: +2 AK",
-
-	                stats: {
-	                	cost: 4
-	                },
-
-               	 	image: "Images/Daemonbreath_Spear.png"
-            	},
-            	{
-	                id: "The-Helldiver",
-	                name: "The Helldiver",
-	                type: "Common Creature",
-	                description: "Democracy Protects: When first destroyed remove card from play then put card back in hand start of next turn.",
-
-	                stats: {
-			    	HP: 2,
-			    	attack: 2,
-			    	cost: 1
-	                },
-
-	                image: "Images/Helldiver.png"
-            	},
-            	{
-	                id: "Rasputin",
-	                name: "Rasputin",
-	                type: "Common Creature",
-	                description: 'Lady’s Man: All allied female units gain +1 HP and all enemy female units gain -1 HP. If female unit is destroyed by “Lady’s Man”, Rasputin gain +1 HP',
-
-	                stats: {
-		                HP: 1,
-		                attack: 2,
-		                cost: 1
-	                },
-
-	                image: "Images/Rasputin.png"
-	            },
-		    {
-	                id: "Minecraft-Player",
-	                name: "Minecraft Player",
-	                type: "Common Creature",
-	                description: "Unlimited Carry Strength: This unit can carry 3 equipment",
-
-	                stats: {
-		                HP: 2,
-		                attack: 1,
-		                cost: 2
-	                },
-
-                	image: "Images/Minecraft Player.png"
-            	},
-            	{
-	                id: "501st-Clone-trooper",
-	                name: "501st Clone trooper",
-	                type: "Common Creature",
-	                description: "",
-
-	                stats: {
-		                HP: 2,
-		                attack: 1,
-		                cost: 1
-	                },
-
-	                image: "Images/501st Clone trooper.png"
-	            },
-	            {
-	                id: "Automaton",
-	                name: "Automaton",
-	                type: "Common Creature",
-	                description: "Socialist Robot: When played, give +1 HP to all allied units, gain -1 HP per unit.",
-
-	                stats: {
-		                HP: 2,
-		                attack: 1,
-		                cost: 1
-	                },
-
-	                image: "Images/Automaton.png"
-	            },
-	            {
-	                id: "B1-Battle-Droid",
-	                name: "B1 Battle Droid",
-	                type: "Common Creature",
-	                description: "Space Racism: When an enemy player calls this card a “Clanker” it gets sad and -1 AK.",
-
-	                stats: {
-		                HP: 2,
-		                attack: 2,
-		                cost: 1
-	                },
-
-	                image: "Images/B1 Battle Droid.png"
-	            },
-	            {
-	                id: "Dale",
-	                name: "Dale",
-	                type: "Common Creature",
-	                description: "Dale’s supply: At the start of your turn if Dawson is in play, Gain +1 HP",
-
-	                stats: {
-	                    	HP: 2,
-	                    	attack: 1,
-	                    	cost: 1
-	                },
-
-	                image: "Images/Dale.png"
-	            },
-	            {
-	                id: "Gorge-Gob-The-5th",
-	                name: "Gorge Gob The 5th",
-	                type: "Common Creature",
-	                description: "BONK!: Every time this unit attacks, add 1 to it’s AK. Weak Potion: When played, halves a targeted unit’s attack damage.",
-
-	                stats: {
-	                    	HP: 1,
-	                    	attack: 1,
-	                    	cost: 3
-	                },
-
-	                image: "Images/Gorge Gob The 5th.png"
-	            },
-	            {
-	                id: "Chell",
-	                name: "Chell",
-	                type: "Common Creature",
-	                description: "Portal Loop: Stuns a enemy unit for one turn. Cooldown: per 2 turns",
-
-	                stats: {
-				HP: 2,
-	                    	attack: 1,
-	                    	cost: 3
-	                },
-
-	                image: "Images/Chell.png"
-            	}
-        ];
-
-        // Search functionality
-        document.addEventListener('DOMContentLoaded', function() {
-        const searchInput = document.getElementById('searchInput');
-        const autocompleteResults = document.getElementById('autocompleteResults');
-
-        function searchCards(query) {
-        if (query.length < 1) {
-        autocompleteResults.style.display = 'none';
-        return [];
-        }
-
-        return cardDatabase.filter(card =>
-        card.name.toLowerCase().includes(query.toLowerCase())
-        ).sort((a, b) => a.name.localeCompare(b.name));
-        }
-
-        function displayResults(results) {
-        autocompleteResults.innerHTML = '';
-
-        if (results.length === 0) {const cardDatabase = [
-{
-        	id: "Backyard",
-        	name: "Backyard",
-        	type: "Terrain",
-        	description: "Any unit card with the
-        const noResults = document.createElement('div');
-        noResults.className = 'no-results';
-        noResults.textContent = 'No cards found';
-        autocompleteResults.appendChild(noResults);
-        } else {
-        results.forEach(card => {
-        const item = document.createElement('div');
-        item.className = 'autocomplete-item';
-        item.innerHTML = `
-        <span class="card-name">${card.name}</span>
-        <span class="card-type">${card.type}</span>
-        `;
-        item.addEventListener('click', () => {
-        window.location.href = `card.html?id=${card.id}`;
-        });
-        autocompleteResults.appendChild(item);
-        });
-        }
-
-        autocompleteResults.style.display = 'block';
-        }
-
-        searchInput.addEventListener('input', () => {
-        const results = searchCards(searchInput.value);
-        displayResults(results);
-        });
-
-        searchInput.addEventListener('focus', () => {
-        if (searchInput.value.length > 0) {
-        const results = searchCards(searchInput.value);
-        displayResults(results);
-        }
-        });
-
-        document.addEventListener('click', (e) => {
-        if (e.target !== searchInput && !autocompleteResults.contains(e.target)) {
-        autocompleteResults.style.display = 'none';
-        }
-        });
-
-        searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-        const firstResult = document.querySelector('.autocomplete-item');
-        if (firstResult) {
-        firstResult.click();
-        }
-        }
-        });
-        });
     </script>
 </body>
 </html>
