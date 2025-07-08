@@ -1,3 +1,13 @@
-The Greatest Card Game Database - Website
+The Greatest Card Game Database
+This website provides a simple, organized database for "The Greatest Card Game" - a custom card game created by me and my friends.
 
-Welcome to the official database website for "The Greatest Card Game"! This project replaces our old Google Slides database with a modern, searchable web interface to archive and explore all the cards in our custom card game.
+Why This Exists
+We were tired of managing our card collection through a massive Google Slides document. This website replaces that with:
+
+🔍 Easy search and filtering
+
+🗂️ Clean card organization
+
+📱 Mobile-friendly access
+
+✨ Simple card viewing
