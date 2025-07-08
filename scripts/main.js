@@ -46,9 +46,11 @@ function setupDarkMode() {
     const body = document.body;
     
     // Initialize from localStorage
-    if (localStorage.getItem('darkMode') === 'enabled') {
-        body.classList.add('dark-mode');
+if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
         darkModeToggle.textContent = '🌞';
+    } else {
+        darkModeToggle.textContent = '🌓';
     }
     
     // Toggle functionality
