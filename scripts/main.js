@@ -27,7 +27,7 @@ const fallbackCards = [
 // Load database.json or use fallback
 async function loadCardDatabase() {
     try {
-        const response = await fetch('database.json');
+        const response = await fetch('./database.json');
         if (!response.ok) throw new Error("Failed to fetch database");
         const data = await response.json();
         return data.cards || data; // Handle both {cards:[]} and direct array formats
