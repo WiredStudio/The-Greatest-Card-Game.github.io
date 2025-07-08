@@ -52,7 +52,7 @@ function setupDarkMode() {
         body.classList.add('dark-mode');
         darkModeToggle.textContent = '🌞';
     } else {
-        darkModeToggle.textContent = '🌓';
+        darkModeToggle.textContent = '<img src="./Images/Drill.gif">';
     }
     
     // Toggle functionality
