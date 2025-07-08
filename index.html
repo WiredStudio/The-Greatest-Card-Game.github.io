@@ -67,44 +67,38 @@
         </div>
     </div>
 
-    <script src="scripts/main.js"></script>
-    <script>
-        // Load card data from database.json
-        fetch('database.json')
-            .then(response => response.json())
-            .then(data => {
-                window.cardDatabase = data.cards;
-                setupSearch();
-                setupDarkMode();
-            })
-            .catch(error => {
-                console.error('Error loading card database:', error);
-                // Fallback data if fetch fails
-                window.cardDatabase = [
-                    {
-                        "id": "goomba",
-                        "name": "Goomba",
-                        "type": "Common Creature",
-                        "description": "Went to FallBack data",
-                        "stats": {
-                            "attack": 1,
-                            "cost": 1
-                        },
-                        "image": "Images/Goomba.png"
-                    },
-                    {
-                        "id": "baseline-earth",
-                        "name": "Baseline Earth",
-                        "type": "Terrain",
-                        "description": "Went to FallBack data",
-                        "stats": {
-                        },
-                        "image": "Images/Earth.png"
-                    }
-                ];
-                setupSearch();
-                setupDarkMode();
-            });
-    </script>
+<script src="scripts/main.js"></script>
+  <script>
+    // Load database
+    fetch('database.json')
+      .then(response => response.json())
+      .then(data => {
+        window.cardDatabase = data.cards;
+        setupSearch();
+        setupDarkMode();
+      })
+      .catch(error => {
+        console.error("Error loading database:", error);
+        // Fallback data
+        window.cardDatabase = [
+          {
+            id: "goomba",
+            name: "Goomba",
+            type: "Common Creature",
+            description: "A small, brown mushroom-like creature.",
+            image: "https://via.placeholder.com/200x280?text=Goomba"
+          },
+          {
+            id: "baseline-earth",
+            name: "Baseline Earth",
+            type: "Terrain",
+            description: "Fundamental earth element.",
+            image: "https://via.placeholder.com/200x280?text=Earth"
+          }
+        ];
+        setupSearch();
+        setupDarkMode();
+      });
+  </script>
 </body>
 </html>
